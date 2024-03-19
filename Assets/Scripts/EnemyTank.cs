@@ -10,6 +10,7 @@ public class EnemyTank : MonoBehaviour
     public float m_CloseDistance = 8f;
     private NavMeshAgent m_NavAgent;
     private Transform m_Target;
+    private Rigidbody m_Ridigbody;
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,7 +33,7 @@ public class EnemyTank : MonoBehaviour
     } 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "player") 
+        if (other.tag == "Player") 
         {
             m_Follow = true;
         }
@@ -40,7 +41,7 @@ public class EnemyTank : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "player")
+        if (other.tag == "Player")
         {
             m_Follow = false;
         }
