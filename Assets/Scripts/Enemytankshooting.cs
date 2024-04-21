@@ -27,7 +27,7 @@ public class Enemytankshooting : MonoBehaviour
     {
         if(m_CanShoot == true)
         {
-            m_ShootTimer -= m_ShootTimer.deltaTime;
+            m_ShootTimer -= Time.deltaTime;
             if(m_ShootTimer <= 0)
             {
                 Fire();
@@ -44,7 +44,7 @@ public class Enemytankshooting : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -52,7 +52,7 @@ public class Enemytankshooting : MonoBehaviour
         }
     }
     
-   private void OnTriggerExit(collider other)
+   private void OnTriggerExit(Collider other)
    {
       if (other.CompareTag("Player"))
       {
@@ -62,6 +62,9 @@ public class Enemytankshooting : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        m_ExplosionParticles.transform.parent = null;
+        m_ExplosionParticles.Play();
+        Destory(m_ExplosionParticles.gameObject, m_ExplosionParticles.main.duration);
         Destroy(gameObject);
     }
 }
