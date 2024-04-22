@@ -15,7 +15,7 @@ public class Enemytankshooting : MonoBehaviour
     private float m_ShootTimer;
     
     
-    void start()
+    void Start()
     {
         Destroy(gameObject, m_MaxLifeTime);
     }
@@ -30,6 +30,7 @@ public class Enemytankshooting : MonoBehaviour
             m_ShootTimer -= Time.deltaTime;
             if(m_ShootTimer <= 0)
             {
+                m_ShootTimer = m_ShootDelay;
                 Fire();
             }
             
@@ -64,7 +65,8 @@ public class Enemytankshooting : MonoBehaviour
     {
         m_ExplosionParticles.transform.parent = null;
         m_ExplosionParticles.Play();
-        Destory(m_ExplosionParticles.gameObject, m_ExplosionParticles.main.duration);
+        Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.main.duration);
+        
         Destroy(gameObject);
     }
 }
