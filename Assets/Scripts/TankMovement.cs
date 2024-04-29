@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class TankMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    Rigidbody m_Rigidbody;
+    
+    private Rigidbody m_Rigidbody;
     float m_MovementInputValue;
     float m_TurnInputValue;
     public float m_Speed = 12f;
@@ -61,5 +61,15 @@ public class TankMovement : MonoBehaviour
            m_turretAsset.LookAt(hit.point);
            m_turretAsset.eulerAngles = new Vector3(0, m_turretAsset.eulerAngles.y, m_turretAsset.eulerAngles.z);
         }
+    }
+
+    private void OnEnable()
+    {
+        m_Rigidbody.isKinematic = false;
+    }
+
+    private void OnDisable()
+    {
+        m_Rigidbody.isKinematic = true;
     }
 }
