@@ -37,10 +37,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+
         if(Input.GetKeyUp(KeyCode.Escape))
         {
             Application.Quit();
         }
+
         switch(m_GameState)
         {
             case GameState.Start:
@@ -94,6 +96,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("You Win!");
             SetTimes(Mathf.FloorToInt(m_gameTime));
         }
+
     }
 
     void GS_GameOver()
@@ -152,4 +155,5 @@ public class GameManager : MonoBehaviour
     }
 }
 
+    
 
