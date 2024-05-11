@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] m_Tanks;
     private float m_gameTime = 0;
     public int[] bestTimes = new int[10];
+    public HighScores m_HighScores;
 
     public enum GameState
     {
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetTanksEnable(false);
+        bestTimes = m_HighScores.GetScores();
     }
 
     void Update()
@@ -95,6 +97,7 @@ public class GameManager : MonoBehaviour
             isGameOver = true;
             Debug.Log("You Win!");
             SetTimes(Mathf.FloorToInt(m_gameTime));
+            m_HighScores.SetScores(bestTimes);
         }
 
     }
