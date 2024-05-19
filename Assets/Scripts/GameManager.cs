@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public Text m_timeTxt;
     public GameObject[] m_Tanks;
     private float m_gameTime = 0;
     public int[] bestTimes = new int[10];
