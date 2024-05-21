@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Text m_timeTxt;
+    public Text m_enemyTanksTxt;
+    public Text m_bestTimeTxt;
+    public Text m_messageTxt;
     public GameObject[] m_Tanks;
     private float m_gameTime = 0;
     public int[] bestTimes = new int[10];
@@ -23,6 +26,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         m_GameState = GameState.Start;
+        m_messageTxt.text = "Press Enter to Start";
     }
 
     void SetTanksEnable(bool enabled)
@@ -37,6 +41,10 @@ public class GameManager : MonoBehaviour
     {
         SetTanksEnable(false);
         bestTimes = m_HighScores.GetScores();
+        m_bestTimeTxt.text = bestTimes[0].ToString();
+        int minutes = Mathf.FloorToInt(bestTimes[0] / 60f);
+        int seconds = Mathf.FloorToInt(bestTimes[0] % 60);
+        m_bestTimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
     }
 
     void Update()
@@ -67,7 +75,9 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Return) == true)
         {
             m_GameState = GameState.Playing;
+            m_enemyTanksTxt.text = (m_Tanks.Length - 1).ToString();
             SetTanksEnable(true);
+            m_messageTxt.text = "";
         }
     }
 
@@ -76,11 +86,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("In Playing State");
         bool isGameOver = false;
         m_gameTime += Time.deltaTime;
+        int minutes = Mathf.FloorToInt(m_gameTime / 60f);
+        int seconds = Mathf.FloorToInt(m_gameTime % 60);
+        m_timeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
 
         if (isPlayerDead() == true)
         {
             isGameOver = true;
-            Debug.Log("You Lose");
+            m_messageTxt.text = "You Lose";
         }
         else if (OneTankLeft() == true)
         {
@@ -97,9 +110,12 @@ public class GameManager : MonoBehaviour
         if (OneTankLeft() == true)
         {
             isGameOver = true;
-            Debug.Log("You Win!");
+            m_messageTxt.text = "You Win!";
             SetTimes(Mathf.FloorToInt(m_gameTime));
             m_HighScores.SetScores(bestTimes);
+            minutes = Mathf.FloorToInt(bestTimes[0] / 60f);
+            seconds = Mathf.FloorToInt(bestTimes[0] % 60);
+            m_bestTimeTxt.text = string.Format("{0:0}:{1:00}", minutes, seconds);
         }
 
     }
@@ -118,14 +134,15 @@ public class GameManager : MonoBehaviour
 
     bool OneTankLeft()
     {
-        int numTanksLeft = 0;
-        for (int i = 0; i < m_Tanks.Length; i++)
+        int numTanksLeft = 1;
+        for (int i = 1; i < m_Tanks.Length; i++)
         {
             if(m_Tanks[i].activeSelf == true)
             {
                 numTanksLeft++;
             }
         }
+        m_enemyTanksTxt.text = (numTanksLeft - 1).ToString();
         return numTanksLeft <= 1;
     }
 
