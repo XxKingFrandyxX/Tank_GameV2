@@ -21,6 +21,7 @@ public class Shell : MonoBehaviour
     {
         
     }
+
     private void OnCollisionEnter(Collision other)
     {
         Collider[] objectsInRange = Physics.OverlapSphere(transform.position, m_ExplosionRadius);
@@ -32,6 +33,11 @@ public class Shell : MonoBehaviour
                 Damage(targetRB);
             }
         }
+
+        m_ExplosionParticles.transform.parent = null;
+        m_ExplosionParticles.Play();
+        Destroy(m_ExplosionParticles, m_ExplosionParticles.main.duration);
+        Destroy(gameObject);
     }
 
     void Damage(Rigidbody targetRigidbody)
