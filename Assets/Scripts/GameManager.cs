@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    AudioSource m_AudioSource;
+    public AudioClip m_StartMusic;
+    public AudioClip m_PlayingMusic;
+    public AudioClip m_GameOverMusic;
+    public GameObject m_PauseMenu;
+    public static bool m_isPaused;
     public Text m_timeTxt;
     public Text m_enemyTanksTxt;
     public Text m_bestTimeTxt;
@@ -25,6 +32,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        m_AudioSource = GetComponent<AudioSource>();
+        m_AudioSource.clip = m_StartMusic;
+        m_AudioSource.Play();
+        m_isPaused = false;
         m_GameState = GameState.Start;
         m_messageTxt.text = "Press Enter to Start";
     }
@@ -52,7 +63,8 @@ public class GameManager : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.Escape))
         {
-            Application.Quit();
+            //Application.Quit();
+            PauseGame(!m_PauseMenu);
         }
 
         switch(m_GameState)
@@ -174,6 +186,25 @@ public class GameManager : MonoBehaviour
             }       
         }
         Debug.Log("Time to beat = " + bestTimes[0]);
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void PauseGame(bool pausing)
+    {
+        m_isPaused = pausing;
+        m_PauseMenu.SetActive(pausing);
+        if (pausing == true)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 }
 

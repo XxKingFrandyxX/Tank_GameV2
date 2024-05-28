@@ -24,6 +24,8 @@ public class TankMovement : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.m_isPaused)
+            return;
         m_MovementInputValue = Input.GetAxis("Vertical");  // Position on the up and down positions
         m_TurnInputValue = Input.GetAxis("Horizontal");  // Position on the left and right positions
         TurnTurret();
