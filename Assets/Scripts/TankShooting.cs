@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class TankShooting : MonoBehaviour
 {
     public Rigidbody m_Shell;
     public Transform m_FireTransform;
     public float m_LaunchForce = 30f;
+    public AudioClip impact;
+
 
     private bool m_CanShoot;
     // Start is called before the first frame update
@@ -22,6 +25,7 @@ public class TankShooting : MonoBehaviour
         {
             Fire();
         }
+
         
     }
 

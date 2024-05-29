@@ -1256,6 +1256,7 @@ MonoBehaviour:
   m_Shell: {fileID: 3889078445514991484, guid: c7e28b50dfae1a9498a044f34d5720ba, type: 3}
   m_FireTransform: {fileID: 465505863}
   m_LaunchForce: 30
+  impact: {fileID: 0}
 --- !u!114 &319001143
 MonoBehaviour:
   m_ObjectHideFlags: 0
